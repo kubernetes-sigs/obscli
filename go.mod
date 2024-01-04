@@ -1,4 +1,4 @@
-module github.com/kubernetes-sigs/obscli
+module sigs.k8s.io/obscli
 
 go 1.21.4
 
