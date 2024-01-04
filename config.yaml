@@ -1,0 +1,53 @@
+projects:
+  - rootProject: 
+    name: 
+    kind:
+    title: 
+    description: 
+    url: 
+    persons:
+      - userid:
+        role:
+    repositories:
+      - name:
+        architectures:
+          - 
+        releaseTargets:
+          - project:
+            repository:
+            trigger:
+        path:
+          - project: 
+            repository:
+    build:
+      disable: {}
+# ...{other fields}
+    
+    packages:
+      - name: 
+        project:
+        title:
+        description:
+        devel:
+          project:
+          package:
+      
+      - name: 
+        project:
+    
+    subprojects:
+      - name: 
+        rootProject: 
+        kind: 
+        title: 
+        description:
+        url: 
+        persons:
+          - userid: 
+            role:
+        repositories:
+        build:
+          disable: {}
+        packages:
+          - name: 
+      # ...{other fields}
