@@ -39,21 +39,30 @@ type Info struct {
 	APIURL   string
 }
 
+const APIURL = "https://api.opensuse.org/"
+
 func Reconcile() *cobra.Command {
 	ctx := context.Background()
 	opts := &Options{}
-	info := &Info{
-		Username: "Nitish",
-		Password: "",
-		APIURL:   "https://api.opensuse.org/",
+	cred := GetOBSCredentials()
+
+	obsOpts := &obs.Options{
+		Username: cred.Username,
+		Password: cred.Password,
+		APIURL:   cred.APIURL,
 	}
-	o := obs.New((*obs.Options)(info))
+	o := obs.New(obsOpts)
 
 	cmd := &cobra.Command{
 		Use:   "reconcile",
 		Short: "reconcile command for Paketo",
 		Args:  cobra.MaximumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
+			if obsOpts.Username == "" || obsOpts.Password == "" {
+				fmt.Printf("set OBS_USERNAME and OBS_PASSWORD as environment variable")
+				return
+			}
+
 			manifestPath, _ := cmd.Flags().GetString("manifest")
 			opts.ManifestPath = manifestPath
 
@@ -75,6 +84,7 @@ func Reconcile() *cobra.Command {
 					fmt.Printf("%v", err)
 					return
 				}
+				// TODO
 				if remotePrj == nil || remotePrj.Name != prj.Name {
 					fmt.Printf("Project %s doesn't exit!", prj.Name)
 					return
@@ -86,6 +96,26 @@ func Reconcile() *cobra.Command {
 	}
 	cmd.Flags().StringP("manifest", "m", "", "path to read manifest")
 	return cmd
+}
+
+func GetOBSCredentials() *Info {
+	username := os.Getenv("OBS_USERNAME")
+	if username == "" {
+		return &Info{}
+	}
+
+	password := os.Getenv("OBS_PASSWORD")
+	if password == "" {
+		return &Info{}
+	}
+
+	credentials := &Info{
+		Username: username,
+		Password: password,
+		APIURL:   APIURL,
+	}
+
+	return credentials
 }
 
 func LoadManifest(filepath string) (*types.Projects, error) {
