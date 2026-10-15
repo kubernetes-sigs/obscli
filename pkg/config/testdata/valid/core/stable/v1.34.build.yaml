@@ -1,0 +1,47 @@
+name: isv:kubernetes:core:stable:v1.34:build
+title: Kubernetes v1.34 (Stable Builder)
+description: |
+  This is a project used to build packages for Kubernetes v1.34.
+url: https://kubernetes.io
+maintainers: [k8s-release-bot]
+groups:
+  maintainers: [k8s-release-team]
+flags:
+  build:
+    - disable
+    - enable: {repository: rpm}
+    - disable: {repository: rpm, arch: s390x}
+  publish: disable
+repositories:
+  - name: rpm
+    architectures: [x86_64, aarch64, ppc64le, s390x]
+    paths:
+      - project: SUSE:SLE-15-SP5:GA
+        repository: standard
+    releaseTargets:
+      - project: isv:kubernetes:core:stable:v1.34
+        repository: rpm
+        trigger: manual
+  - name: deb
+    architectures: [x86_64, aarch64, ppc64le, s390x]
+    paths:
+      - project: Ubuntu:20.04
+        repository: universe
+      - project: Ubuntu:debbuild
+        repository: Ubuntu_20.04
+    releaseTargets:
+      - project: isv:kubernetes:core:stable:v1.34
+        repository: deb
+        trigger: manual
+packages:
+  policy: report
+  managed:
+    - name: kubelet
+    - name: kubeadm
+    - name: cri-tools
+      title: CRI Tools
+      description: CLI and validation tools for Kubelet Container Runtime Interface
+      url: https://github.com/kubernetes-sigs/cri-tools
+      maintainers: [xmudrii]
+      flags:
+        build: enable

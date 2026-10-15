@@ -1,0 +1,19 @@
+name: isv:kubernetes:core:stable:v1.34
+kind: maintenance_release
+title: Kubernetes v1.34 (Stable)
+description: Packages for Kubernetes v1.34.
+repositories:
+  - name: rpm
+    architectures: [x86_64, aarch64, ppc64le, s390x]
+    paths:
+      - project: SUSE:SLE-15-SP5:GA
+        repository: standard
+  - name: deb
+    architectures: [x86_64, aarch64, ppc64le, s390x]
+    paths:
+      - project: Ubuntu:20.04
+        repository: universe
+      - project: Ubuntu:debbuild
+        repository: Ubuntu_20.04
+packages:
+  policy: ignore

@@ -1,2 +1,5 @@
 .vscode
 .idea
+/obscli
+/go.work
+/go.work.sum

@@ -1,0 +1,22 @@
+name: isv:kubernetes:core:stable:v1.34
+kind: maintenance_release
+title: Kubernetes v1.34 (Stable)
+description: |
+  Project/repository hosting packages for stable versions of Kubernetes v1.34
+url: https://kubernetes.io
+maintainers: [xmudrii, k8s-release-bot]
+flags:
+  build: disable
+repositories:
+  - name: rpm
+    architectures: [x86_64, aarch64, ppc64le, s390x]
+    paths:
+      - project: SUSE:SLE-15-SP5:GA
+        repository: standard
+  - name: deb
+    architectures: [x86_64, aarch64, s390x, ppc64le]
+    paths:
+      - project: Ubuntu:20.04
+        repository: universe
+      - project: Ubuntu:debbuild
+        repository: Ubuntu_20.04

@@ -1,0 +1,11 @@
+name: isv:kubernetes
+title: Kubernetes
+description: Official Kubernetes package repositories sponsored by OpenBuildService
+url: https://kubernetes.io
+maintainers: [k8s-release-bot, xmudrii]
+bugowners: [k8s-release-bot, xmudrii]
+flags:
+  build: disable
+  publish: disable
+  debuginfo: disable
+  useforbuild: disable

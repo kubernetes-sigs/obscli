@@ -1,0 +1,5 @@
+name: isv:kubernetes:core
+title: Kubernetes Core
+description: Core Kubernetes packages.
+flags:
+  build: disable
